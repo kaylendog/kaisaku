@@ -1,3 +1,6 @@
+import { resolve } from "path";
+
+import { emitVersionFile } from "./emit";
 import { git } from "./resolver/git";
 import { packageInfo } from "./resolver/package";
 import { simple } from "./resolver/simple";
@@ -60,6 +63,17 @@ class Kaisaku<K extends string> {
 	 */
 	async resolve(): Promise<Record<K, string>> {
 		return this.resolver({});
+	}
+
+	/**
+	 * Write the record to the target path.
+	 * @param path
+	 * @returns
+	 */
+	async script(path: string) {
+		return this.resolve().then((record) =>
+			emitVersionFile(resolve(process.cwd(), path), record)
+		);
 	}
 }
 

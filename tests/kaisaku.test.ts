@@ -13,4 +13,8 @@ describe("kaisaku", () => {
 			"PACKAGE_VERSION",
 		]);
 	});
+
+	it("should write to the version file", async () => {
+		await kaisaku.withDefaults().script("./version.ts");
+	});
 });
