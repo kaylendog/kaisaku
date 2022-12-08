@@ -65,18 +65,30 @@ class Kaisaku<K extends string> {
 		return this.resolver({});
 	}
 
+	private _emitLocation: string = resolve(process.cwd(), "src/version.ts");
+
+	/**
+	 * Set the emit location.
+	 * @param string
+	 */
+	emitLocation(path: string) {
+		this._emitLocation = resolve(path, "src/version.ts");
+	}
+
 	/**
 	 * Write the record to the target path.
 	 * @param path
 	 * @returns
 	 */
-	async script(path: string) {
+	async script() {
 		return this.resolve().then((record) =>
-			emitVersionFile(resolve(process.cwd(), path), record)
+			emitVersionFile(resolve(process.cwd(), this._emitLocation), record)
 		);
 	}
 }
 
 export const { use, withDefaults, empty } = Kaisaku;
+
+export type { Kaisaku };
 
 export * from "./resolver";
