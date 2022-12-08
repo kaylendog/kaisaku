@@ -38,9 +38,6 @@ export const emitVersionFile = (
 		ts.createSourceFile("version.ts", "", ts.ScriptTarget.Latest)
 	);
 
-	console.log(result);
+	return result;
 };
 
-emitVersionFile("./test.ts", {
-	hello: "hello",
-});
